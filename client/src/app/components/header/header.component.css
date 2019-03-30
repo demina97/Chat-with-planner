@@ -1,0 +1,33 @@
+.login {
+  display: inline;
+  float: right;
+  margin-top: -37px;
+  background-color: dimgray;
+  color: white;
+  border-radius: 5px;
+  margin-right: 20px;
+  padding: 5px 20px 5px 20px;
+}
+
+#signUp {
+  margin-right: 120px;
+}
+
+#base {
+  width: 100%;
+  height: 70px;
+  margin-top: 50px;
+  background-color: #173F5F;
+}
+
+.menu {
+  display: inline;
+  float: left;
+  background-color: gainsboro;
+  color: #173F5F;
+  padding: 10px 30px 10px 30px;
+  font-size: 20px;
+  margin-left: 220px;
+  margin-top: 12px;
+  border-radius: 5px;
+}
