@@ -2,7 +2,7 @@
   height: 400px;
   width: 1200px;
   margin-left: 50px;
-  margin-top: 23px;
+  margin-top: 20px;
 }
 .chat{
   text-align: left;
@@ -13,8 +13,8 @@
 }
 
 .footer{
-  background: #cccccc;
-  margin-top: 30px;
+  background: #173F5F;
+  margin-top: 20px;
   bottom: 0;
   height: 65px;
   width: 100%;
@@ -32,10 +32,9 @@ input{
 }
 .send{
   float: right;
-  background-size: contain;
   background: url("../../../assets/images/send.png") no-repeat;
+  background-size: contain;
   height: 30px;
   width: 30px;
   margin-left: 5px;
-
 }
