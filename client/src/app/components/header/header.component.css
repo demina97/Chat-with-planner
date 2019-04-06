@@ -22,13 +22,16 @@
 }
 
 .menu {
-  display: inline;
-  float: right;
+  display: inline-block;
+  text-align: center;
   background-color: gainsboro;
   color: #173F5F;
   padding: 10px 30px 10px 30px;
   font-size: 20px;
-  margin-right: 220px;
   margin-top: 12px;
   border-radius: 5px;
+}
+
+#planner {
+  margin: 0 220px;
 }
