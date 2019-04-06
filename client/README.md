@@ -1,3 +1,14 @@
+#Если не работает автолоадинг изменений:
+
+echo "fs.inotify.max_user_watches=524288" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+
+rm -rf nodes_modules/
+ 
+npm update
+ 
+npm install
+
 # Client
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.0.
