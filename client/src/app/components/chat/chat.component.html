@@ -1,6 +1,13 @@
 <div class="chat-container">
   <div class="chat">
-    <div class='message' *ngFor="let m of messages">{{m}}</div>
+    <div class='message' [ngClass]="{'userMessage': checkCurrentUser(m.sender)}" *ngFor="let m of messages">
+      <div>
+        <span class="senderName">{{m.sender}}</span>
+        <br>
+        <span class="sendingTime">{{m.timeOfSending}}</span>
+        <div class="messageText">{{m.messageText}}</div>
+      </div>
+    </div>
   </div>
 </div>
 
