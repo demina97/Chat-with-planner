@@ -1,24 +1,38 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {HeaderComponent} from './components/header/header.component';
 import {FormsModule} from "@angular/forms";
-import { ChatComponent } from './components/chat/chat.component';
+import {LoginPageComponent} from './components/login-page/login-page.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {ChatComponent} from './components/chat/chat.component';
+import {MainPageComponent} from './components/main-page/main-page.component';
+import {Interceptor} from "./app.interceptor";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ChatComponent
+    LoginPageComponent,
+    ChatComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

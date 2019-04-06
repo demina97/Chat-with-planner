@@ -1,6 +1,6 @@
 <div class="chat-container">
   <div class="chat">
-    <div class='message' [ngClass]="{'userMessage': checkCurrentUser(m.sender)}" *ngFor="let m of messages">
+    <div class='message' [ngClass]="{'userMessage': checkCurrentUser(m.sender)}" *ngFor="let m of messages()">
       <div>
         <span class="senderName">{{m.sender}}</span>
         <br>
@@ -15,7 +15,7 @@
   <div class="send-button">
     <div class="send" (click)="sendMessage()"></div>
     <label>
-      <input  [(ngModel)]="input"  type="text">
+      <input [(ngModel)]="input" type="text">
     </label>
   </div>
 </div>

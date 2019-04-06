@@ -1,6 +1,5 @@
-import { Component} from '@angular/core';
-import * as Stomp from 'stompjs';
-import * as SockJS from 'sockjs-client';
+import {Component} from '@angular/core';
+import {ChatService} from "../../services/chat.service";
 import {Message} from "../../models/Message";
 
 @Component({
@@ -9,37 +8,22 @@ import {Message} from "../../models/Message";
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
-
-  private serverUrl = 'http://localhost:8080/socket';
-  private title = 'WebSockets chat';
-  private stompClient;
-  public messages: Message[] = [];
   public input: string = "";
 
-  constructor(){
-    this.initializeWebSocketConnection();
+  constructor(private chatService: ChatService) {
+
   }
 
-  initializeWebSocketConnection(){
-    let ws = new SockJS(this.serverUrl);
-    this.stompClient = Stomp.over(ws);
-    let that = this;
-    this.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe("/chat", (message) => {
-        if(message.body) {
-          that.messages.push(JSON.parse(message.body));
-          console.log(message.body);
-        }
-      });
-    });
-  }
-
-  sendMessage(){
-    this.stompClient.send("/app/send/message" , {}, this.input);
+  sendMessage() {
+    this.chatService.sendMessage(this.input);
     this.input = "";
   }
 
-  checkCurrentUser(username: string): boolean{
+  messages(): Message[] {
+    return this.chatService.messages;
+  }
+
+  checkCurrentUser(username: string): boolean {
     return username == "Vatson";
   }
 
