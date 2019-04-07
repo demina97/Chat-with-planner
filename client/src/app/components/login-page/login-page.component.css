@@ -1,0 +1,55 @@
+.form {
+  position: relative;
+  z-index: 1;
+  background: #173F5F;
+  max-width: 360px;
+  margin: 120px auto 100px;
+  padding: 35px 35px 20px 35px;
+  text-align: center;
+}
+
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: whitesmoke;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #173F5F;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.form button:hover, .form button:active, .form button:focus {
+  background: cadetblue;
+}
+
+.form .newEmployee {
+  color: #b3b3b3;
+  margin-top: 15px;
+  font-size: 13px;
+  font-family: sans-serif;
+}
+
+.form .newEmployee a {
+  text-decoration: underline;
+}
+
+.form .newEmployee a:hover, .form .newEmployee a:active, .form .newEmployee a:focus  {
+  text-decoration: none;
+  color: cadetblue;
+  cursor: pointer;
+}
