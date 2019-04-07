@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
-import {User} from "../models/User";
+import {LoginData} from "../models/LoginData";
 import {map} from "rxjs/operators";
 import {ChatService} from "./chat.service";
 import {TokenService} from "./token.service";
@@ -22,7 +22,7 @@ export class LoginService {
     });
   }
 
-  login(user: User): Observable<boolean> {
+  login(user: LoginData): Observable<boolean> {
     let url = environment.server_url + '/login';
     return this.http.post<any>(url, {
       username: user.userName,

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../models/User";
+import {LoginData} from "../../models/LoginData";
 import {LoginService} from "../../services/login.service";
 
 @Component({
@@ -8,7 +8,7 @@ import {LoginService} from "../../services/login.service";
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
-  user: User = new User();
+  user: LoginData = new LoginData();
   afterClick: boolean = false;
 
   constructor(private service: LoginService) { }
