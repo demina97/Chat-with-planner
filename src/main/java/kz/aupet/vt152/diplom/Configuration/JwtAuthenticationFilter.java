@@ -1,7 +1,7 @@
 package kz.aupet.vt152.diplom.Configuration;
 
 import io.jsonwebtoken.ExpiredJwtException;
-import kz.aupet.vt152.diplom.Models.Login.JwtUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,10 +22,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   private final JwtTokenUtil jwtTokenUtil;
   private final String tokenHeader;
   
+  private final UserService userService;
+  
+  @Autowired
   public JwtAuthenticationFilter(JwtTokenUtil jwtTokenUtil,
-                                 @Value("${jwt.header}") String tokenHeader) {
+                                 @Value("${jwt.header}") String tokenHeader, UserService userService) {
     this.jwtTokenUtil = jwtTokenUtil;
     this.tokenHeader = tokenHeader;
+    this.userService = userService;
   }
   
   @Override
@@ -41,7 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       authToken = request.getParameter("token");
     }
     
-    if (authToken != null && authToken.length() > 0) {
+    if (authToken != null && !"null".equals(authToken) && authToken.length() > 0) {
       try {
         username = jwtTokenUtil.getUsernameFromToken(authToken);
       } catch (IllegalArgumentException e) {
@@ -58,7 +62,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       
       UserDetails userDetails;
       try {
-        userDetails = new JwtUser("user", "111");
+        userDetails = userService.loadUserByUsername(username);
       } catch (UsernameNotFoundException e) {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
         return;

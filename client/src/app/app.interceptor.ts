@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {Observable} from "rxjs";
+import {Observable, throwError} from "rxjs";
 import {TokenService} from "./services/token.service";
+import {catchError} from "rxjs/operators";
 
 
 @Injectable()
@@ -18,19 +19,15 @@ export class Interceptor implements HttpInterceptor {
           'Authorization': `Bearer ${this.token.getToken()}`
         }
       });
-
-      console.log(req);
     }
 
-    let n = next.handle(req);
-    n.subscribe(() => {}, err => {
-      if (err instanceof HttpErrorResponse) {
-        if (err.status === 401) {
-          this.router.navigate(['home']);
+    return next.handle(req).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          this.router.navigate(['login']);
         }
-      }
-    });
-    return n;
+        return throwError(error);
+      }));
   }
 
 }

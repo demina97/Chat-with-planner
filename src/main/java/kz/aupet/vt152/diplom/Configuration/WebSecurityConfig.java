@@ -73,6 +73,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .headers()
       .frameOptions().sameOrigin()
       .cacheControl();
+    
+    httpSecurity.cors();
   }
   
   @Override

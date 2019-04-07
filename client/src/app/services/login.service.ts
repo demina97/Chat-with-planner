@@ -14,12 +14,6 @@ export class LoginService {
   isLogin: boolean = false;
 
   constructor(private http: HttpClient, private chatService: ChatService, private token: TokenService) {
-    this.http.get<boolean>(environment.server_url + '/validate', {}).subscribe(value => {
-      this.isLogin = value;
-      chatService.initializeWebSocketConnection();
-    }, error => {
-      this.isLogin = false;
-    });
   }
 
   login(user: LoginData): Observable<boolean> {
@@ -38,6 +32,18 @@ export class LoginService {
         this.isLogin = false;
         return false;
       }
+    }));
+  }
+
+  validateLogin(): Observable<boolean> {
+    return this.http.get<boolean>(environment.server_url + '/validate', {}).pipe(map(value => {
+      this.isLogin = value;
+      if (this.isLogin) {
+        this.chatService.initializeWebSocketConnection();
+      }
+      return this.isLogin;
+    }, error => {
+      return (this.isLogin = false);
     }));
   }
 }
