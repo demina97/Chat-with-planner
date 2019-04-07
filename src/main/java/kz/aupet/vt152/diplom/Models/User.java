@@ -6,13 +6,16 @@ public class User {
     private String lastName;
     private String position;
     private String password;
+    private String  confirmedPassword;
 
-    public User(String userName, String firstName, String lastName, String position, String password){
+    public User(String userName, String firstName, String lastName, String position,
+                String password, String  confirmedPassword;){
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.position = position;
         this.password = password;
+        this.confirmedPassword = confirmedPassword;
     }
 
     public String getUserName() {
@@ -53,5 +56,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmedPassword() {
+        return confirmedPassword;
+    }
+
+    public void setConfirmedPassword(String confirmedPassword) {
+        this.confirmedPassword = confirmedPassword;
     }
 }
