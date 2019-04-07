@@ -47,10 +47,6 @@ public class WebSocketController {
   @MessageMapping("/info")
   public void info() {
     this.template.convertAndSend("/chat",
-      testMessages.get(i++));
-    
-    if (i >= testMessages.size()) {
-      i = 0;
-    }
+      "SUCCESS");
   }
 }

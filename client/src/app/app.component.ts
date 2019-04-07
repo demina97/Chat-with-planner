@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginService} from "./services/login.service";
+import {ChatService} from "./services/chat.service";
 
 @Component({
   selector: 'app-root',
@@ -7,12 +8,12 @@ import {LoginService} from "./services/login.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private chatService: ChatService) {
   }
 
   ngOnInit() {
     this.loginService.validateLogin().subscribe(value => {
-
+      this.chatService.initializeWebSocketConnection();
     });
   }
 

@@ -1,9 +1,16 @@
 <div id="login">
-  <div class="login" id="signUp" routerLink="/registration">Регистрация</div>
-  <div class="login" id="signIn" routerLink="/login">Вход</div>
+  <div *ngIf="!isLogin()">
+    <div class="login" id="signUp" routerLink="/registration">Регистрация</div>
+    <div class="login" id="signIn" routerLink="/login">Вход</div>
+  </div>
+  <div *ngIf="isLogin()">
+    <div class="login_image login context">
+      <div class="context_menu" (click)="logout()">Выход</div>
+    </div>
+  </div>
 </div>
 
 <div id="base">
-  <div class="menu" id="planner" routerLink="/planner">Планировщик</div>
-  <div class="menu" id="chat" routerLink="/chat">Чат</div>
+  <div *ngIf="isLogin()" class="menu" id="planner" routerLink="/planner">Планировщик</div>
+  <div *ngIf="isLogin()" class="menu" id="chat" routerLink="/chat">Чат</div>
 </div>

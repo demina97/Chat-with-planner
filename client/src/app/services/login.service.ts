@@ -40,9 +40,6 @@ export class LoginService {
   validateLogin(): Observable<boolean> {
     return this.http.get<boolean>(environment.server_url + '/validate', {}).pipe(map(value => {
       this.isLogin = value;
-      if (this.isLogin) {
-        this.chatService.initializeWebSocketConnection();
-      }
       return this.isLogin;
     }, error => {
       return (this.isLogin = false);
@@ -61,5 +58,12 @@ export class LoginService {
           return false;
         }
       }));
+  }
+
+  logout() {
+    this.isLogin = false;
+    this.token.signOut();
+    this.chatService.disconnect();
+    this.router.navigateByUrl("/login");
   }
 }
