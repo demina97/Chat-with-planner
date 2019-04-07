@@ -3,13 +3,13 @@ import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import {Message} from "../models/Message";
 import {TokenService} from "./token.service";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
   private isChatInitialize: boolean = false;
-  private serverUrl = 'http://localhost:8080/socket';
   private stompClient;
   public messages: Message[] = [];
 
@@ -20,10 +20,10 @@ export class ChatService {
   }
 
   initializeWebSocketConnection() {
-    let ws = new SockJS(this.serverUrl);
+    let ws = new SockJS(environment.socet_url + '?token=' + this.token.getToken());
     this.stompClient = Stomp.over(ws);
     let that = this;
-    this.stompClient.connect({Authorization: `Bearer ${this.token.getToken()}`}, function (frame) {
+    this.stompClient.connect({}, function () {
       that.isChatInitialize = true;
       that.stompClient.subscribe("/chat", (message) => {
         if (message.body) {

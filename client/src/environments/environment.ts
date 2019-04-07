@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   server_url: "http://localhost:8080/api",
-  socet_url: "http://localhost:8080/socet"
+  socet_url: "http://localhost:8080/socket"
 };
 
 /*

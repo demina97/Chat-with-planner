@@ -13,7 +13,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -33,21 +32,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
     String requestHeader = request.getHeader(this.tokenHeader);
     
-    Cookie[] cookies = request.getCookies();
-    if (cookies != null) {
-      for (Cookie cookie : cookies) {
-        if (tokenHeader.equals(cookie.getName())) {
-          requestHeader = cookie.getValue();
-        }
-      }
-    }
-    
-    
     String username = null;
-    String authToken = null;
+    String authToken;
     
     if (requestHeader != null && requestHeader.startsWith("Bearer ")) {
       authToken = requestHeader.substring(7);
+    } else {
+      authToken = request.getParameter("token");
+    }
+    
+    if (authToken != null && authToken.length() > 0) {
       try {
         username = jwtTokenUtil.getUsernameFromToken(authToken);
       } catch (IllegalArgumentException e) {
@@ -70,9 +64,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return;
       }
       
-      
-      // For simple validation it is completely sufficient to just check the token integrity. You don't have to call
-      // the database compellingly. Again it's up to you ;)
       if (jwtTokenUtil.validateToken(authToken, userDetails)) {
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
