@@ -1,8 +1,7 @@
 .chat-container{
   height: 400px;
   width: 1200px;
-  margin-left: 50px;
-  margin-top: 20px;
+  margin: 20px auto 0;
 }
 .chat{
   text-align: left;

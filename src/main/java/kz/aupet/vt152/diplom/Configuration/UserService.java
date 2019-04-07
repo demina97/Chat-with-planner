@@ -1,6 +1,6 @@
 package kz.aupet.vt152.diplom.Configuration;
 
-import kz.aupet.vt152.diplom.models.login.JwtUser;
+import kz.aupet.vt152.diplom.Models.Login.JwtUser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

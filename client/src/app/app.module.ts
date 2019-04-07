@@ -10,6 +10,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ChatComponent} from './components/chat/chat.component';
 import {MainPageComponent} from './components/main-page/main-page.component';
 import {Interceptor} from "./app.interceptor";
+import { RegistrationComponent } from './components/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {Interceptor} from "./app.interceptor";
     HeaderComponent,
     LoginPageComponent,
     ChatComponent,
-    MainPageComponent
+    MainPageComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-package kz.aupet.vt152.diplom.models.login;
+package kz.aupet.vt152.diplom.Models.Login;
 
 import java.io.Serializable;
 

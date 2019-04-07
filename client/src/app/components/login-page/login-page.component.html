@@ -4,17 +4,17 @@
       <input class="input username" type="text" name="username" [(ngModel)]="user.userName" #username="ngModel"
              placeholder="Номер телефона" required/>
     </label>
-    <div class="error" *ngIf="f.submitted && !username.valid">Username is required</div>
+    <div class="error" *ngIf="f.submitted && !username.valid">Обязательно для заполнения</div>
   </div>
   <div [ngClass]="{ 'has-error': f.submitted && !password.valid }">
     <label>
       <input class="input password" type="password" name="password" [(ngModel)]="user.password" #password="ngModel"
              placeholder="Пароль" required/>
     </label>
-    <div *ngIf="f.submitted && !password.valid">Password is required</div>
+    <div class="error" *ngIf="f.submitted && !password.valid">Обязательно для заполнения</div>
   </div>
   <div>
-    <button class="error" [disabled]="afterClick">Вход</button>
+    <button class="loginError" [disabled]="afterClick">Вход</button>
   </div>
-  <div class="newEmployee">Новый сотрудник? <a>Зарегистрируйтесь.</a></div>
+  <div class="newEmployee">Новый сотрудник? <a routerLink="/registration">Зарегистрируйтесь.</a></div>
 </form>

@@ -1,4 +1,4 @@
-package kz.aupet.vt152.diplom.models.login;
+package kz.aupet.vt152.diplom.Models.Login;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;

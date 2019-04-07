@@ -3,7 +3,7 @@
   z-index: 1;
   background: #173F5F;
   max-width: 360px;
-  margin: 120px auto 100px;
+  margin: 50px auto 100px;
   padding: 35px 35px 20px 35px;
   text-align: center;
 }
@@ -36,24 +36,6 @@
 
 .form button:hover, .form button:active, .form button:focus {
   background: cadetblue;
-}
-
-.form .newEmployee {
-  color: #b3b3b3;
-  margin-top: 15px;
-  font-size: 13px;
-  font-family: sans-serif;
-}
-
-.form .newEmployee a {
-  text-decoration: underline;
-  color: white;
-}
-
-.form .newEmployee a:hover, .form .newEmployee a:active, .form .newEmployee a:focus  {
-  text-decoration: none;
-  color: cadetblue;
-  cursor: pointer;
 }
 
 .error {

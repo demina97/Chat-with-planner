@@ -2,7 +2,7 @@ package kz.aupet.vt152.diplom.Controllers;
 
 import kz.aupet.vt152.diplom.Configuration.JwtTokenUtil;
 import kz.aupet.vt152.diplom.Configuration.UserService;
-import kz.aupet.vt152.diplom.models.login.LoginData;
+import kz.aupet.vt152.diplom.Models.Login.LoginData;
 import kz.aupet.vt152.diplom.service.JwtAuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

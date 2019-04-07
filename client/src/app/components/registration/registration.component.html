@@ -1,0 +1,55 @@
+<form class="form" name="form" (ngSubmit)="f.form.valid && toRegister()" #f="ngForm" novalidate>
+
+  <div [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
+    <label>
+      <input class="input firstName" type="text" name="firstName" [(ngModel)]="user.firstName" #firstName="ngModel"
+             placeholder="Имя" required/>
+    </label>
+    <div class="error" *ngIf="f.submitted && !firstName.valid">Обязательно для заполнения</div>
+  </div>
+
+  <div [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
+    <label>
+      <input class="input lastName" type="text" name="lastName" [(ngModel)]="user.lastName" #lastName="ngModel"
+             placeholder="Фамилия" required/>
+    </label>
+    <div class="error" *ngIf="f.submitted && !lastName.valid">Обязательно для заполнения</div>
+  </div>
+
+  <div [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+    <label>
+      <input class="input username" type="text" name="username" [(ngModel)]="user.userName" #username="ngModel"
+             placeholder="Номер телефона" required/>
+    </label>
+    <div class="error" *ngIf="f.submitted && !username.valid">Обязательно для заполнения</div>
+  </div>
+
+  <div [ngClass]="{ 'has-error': f.submitted && !position.valid }">
+    <label>
+      <input class="input position" type="text" name="position" [(ngModel)]="user.position" #position="ngModel"
+             placeholder="Должность" required/>
+    </label>
+    <div class="error" *ngIf="f.submitted && !position.valid">Обязательно для заполнения</div>
+  </div>
+
+  <div [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+    <label>
+      <input class="input password" type="text" name="password" [(ngModel)]="user.password" #password="ngModel"
+             placeholder="Пароль" required/>
+    </label>
+    <div class="error" *ngIf="f.submitted && !password.valid">Обязательно для заполнения</div>
+  </div>
+
+  <div [ngClass]="{ 'has-error': f.submitted && !confirmedPassword.valid }">
+    <label>
+      <input class="input confirmedPassword" type="text" name="confirmedPassword" [(ngModel)]="user.confirmedPassword"
+             #confirmedPassword="ngModel" placeholder="Повторите пароль" required/>
+    </label>
+    <div class="error" *ngIf="f.submitted && !confirmedPassword.valid">Обязательно для заполнения</div>
+  </div>
+
+  <div>
+    <button class="regError" [disabled]="afterClick">Зарегистрироваться</button>
+  </div>
+
+</form>
