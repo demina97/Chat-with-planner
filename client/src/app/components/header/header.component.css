@@ -33,4 +33,9 @@
 
 #planner {
   margin-right: 200px;
+  cursor: pointer;
+}
+
+#chat {
+  cursor: pointer;
 }

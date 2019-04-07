@@ -1,0 +1,18 @@
+<div class="form">
+  <h1>Список задач</h1>
+
+  <div>
+    <input type="text" name="task"  placeholder="Добавить задачу" #task><span class="button"
+                                                                             (click)="addTask(task.value)">Добавить</span>
+  </div>
+
+  <div>
+    <ul>
+      <li class="task" *ngFor="let task of tasks">{{task}}
+      <i class="material-icons deleteIcon" (click)="deleteItem(task)">delete</i></li>
+    </ul>
+  </div>
+
+
+
+</div>
