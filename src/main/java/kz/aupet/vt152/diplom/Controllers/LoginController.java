@@ -1,21 +1,22 @@
 package kz.aupet.vt152.diplom.Controllers;
 
 import kz.aupet.vt152.diplom.Configuration.JwtTokenUtil;
-import kz.aupet.vt152.diplom.Configuration.UserService;
 import kz.aupet.vt152.diplom.Models.Login.LoginData;
+import kz.aupet.vt152.diplom.Models.RequestError;
+import kz.aupet.vt152.diplom.Models.User;
 import kz.aupet.vt152.diplom.service.JwtAuthenticationResponse;
+import kz.aupet.vt152.diplom.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
@@ -42,7 +43,7 @@ public class LoginController {
   }
   
   @RequestMapping(value = "/login", method = RequestMethod.POST)
-  public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginData authenticationRequest, HttpServletResponse response) throws AuthenticationException {
+  public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginData authenticationRequest) throws AuthenticationException {
     
     authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
     
@@ -50,6 +51,19 @@ public class LoginController {
     final String token = jwtTokenUtil.generateToken(userDetails);
     
     return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+  }
+  
+  @RequestMapping(value = "/registration", method = RequestMethod.POST)
+  public ResponseEntity<?> registration(@RequestBody User user) {
+    if (!userService.checkPhoneNumber(user.getPhone())) {
+      return new ResponseEntity<>(new RequestError("Пользователь с таким телефоном уже существует"), HttpStatus.BAD_REQUEST);
+    }
+    
+    if (!userService.registry(user)) {
+      throw new RuntimeException("Пользователь с таким именем уже существует");
+    }
+    
+    return ResponseEntity.ok(true);
   }
   
   @RequestMapping(value = "/validate", method = RequestMethod.GET)

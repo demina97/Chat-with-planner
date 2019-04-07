@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
+  error: boolean = false;
   user: LoginData = new LoginData();
   afterClick: boolean = false;
 
@@ -18,6 +19,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   login() {
+    this.error = false;
     this.afterClick = true;
     this.service.login(this.user).subscribe(value => {
         if (value) {
@@ -29,6 +31,7 @@ export class LoginPageComponent implements OnInit {
         this.afterClick = false;
       }, () => {
         this.afterClick = false;
+        this.error = true;
       }
     )
   }

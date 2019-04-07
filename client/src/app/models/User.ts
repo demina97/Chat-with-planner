@@ -1,5 +1,5 @@
 export class User {
-  userName: String = "";
+  phone: String = "";
   firstName: String = "";
   lastName: String = "";
   position: String = "";

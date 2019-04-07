@@ -1,4 +1,7 @@
 <form class="form" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+  <div *ngIf="error" class="login-error">
+    Вы ввели неверный логин или пароль!
+  </div>
   <div [ngClass]="{ 'has-error': f.submitted && !username.valid }">
     <label>
       <input class="input username" type="text" name="username" [(ngModel)]="user.userName" #username="ngModel"

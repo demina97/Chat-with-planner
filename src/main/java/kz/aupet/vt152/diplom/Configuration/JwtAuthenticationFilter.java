@@ -1,6 +1,7 @@
 package kz.aupet.vt152.diplom.Configuration;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import kz.aupet.vt152.diplom.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

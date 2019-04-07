@@ -7,7 +7,7 @@ import {PlannerComponent} from "./components/planner/planner.component";
 import {LoginGuard} from "./guards/login.guard";
 
 const routes: Routes = [
-  {path: 'planner', component: PlannerComponent},
+  {path: 'planner', component: PlannerComponent, canActivate: [LoginGuard]},
   {path: 'login', component: LoginPageComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'chat', component: ChatComponent, canActivate: [LoginGuard]},

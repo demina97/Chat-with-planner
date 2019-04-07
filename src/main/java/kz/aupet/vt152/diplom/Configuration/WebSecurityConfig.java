@@ -1,5 +1,6 @@
 package kz.aupet.vt152.diplom.Configuration;
 
+import kz.aupet.vt152.diplom.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -64,6 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
       .authorizeRequests()
       .antMatchers("/api/login/**").permitAll()
+      .antMatchers("/api/registration/**").permitAll()
       .anyRequest().authenticated();
     
     httpSecurity
@@ -83,7 +85,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .ignoring()
       .antMatchers(
         HttpMethod.POST,
-        "/api/login"
+        "/api/login",
+        "/api/registration"
       )
       .and()
       .ignoring()

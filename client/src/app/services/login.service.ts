@@ -6,6 +6,8 @@ import {LoginData} from "../models/LoginData";
 import {map} from "rxjs/operators";
 import {ChatService} from "./chat.service";
 import {TokenService} from "./token.service";
+import {User} from "../models/User";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ import {TokenService} from "./token.service";
 export class LoginService {
   isLogin: boolean = false;
 
-  constructor(private http: HttpClient, private chatService: ChatService, private token: TokenService) {
+  constructor(private http: HttpClient, private chatService: ChatService, private token: TokenService, private router: Router) {
   }
 
   login(user: LoginData): Observable<boolean> {
@@ -45,5 +47,19 @@ export class LoginService {
     }, error => {
       return (this.isLogin = false);
     }));
+  }
+
+  registration(user: User): Observable<boolean> {
+    return this.http.post<any>(environment.server_url + '/registration', user)
+      .pipe(map(data => {
+        if (data) {
+          alert("Registration SUCCESS.");
+          this.router.navigateByUrl("/login");
+          return true;
+        } else {
+          alert("Registration failed.");
+          return false;
+        }
+      }));
   }
 }
