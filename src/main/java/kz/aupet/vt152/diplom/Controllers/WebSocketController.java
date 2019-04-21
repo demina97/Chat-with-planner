@@ -17,14 +17,14 @@ public class WebSocketController {
   private static List<Message> testMessages = new ArrayList<>();
   
   static {
-    testMessages.add(new Message("12-04-2019 23:15:14", "Vatson",
-      "Ryzhik", "Mao!"));
-    testMessages.add(new Message("12-04-2019 23:18:14", "Ryzhik",
-      "Vatson", "Mua!"));
-    testMessages.add(new Message("12-04-2019 23:19:14", "Ryzhik",
-      "Vatson", "Muu-u-u-u..."));
-    testMessages.add(new Message("12-04-2019 23:21:14", "Vatson",
-      "Ryzhik", "...aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-a-a-a!!"));
+    testMessages.add(new Message("12-04-2019 23:15:14", "Бухгалтер",
+      "Менеджер проектов", "Добрый день!"));
+    testMessages.add(new Message("12-04-2019 23:18:14", "Менеджер проектов",
+      "Бухгалтер", "Добрый."));
+    testMessages.add(new Message("12-04-2019 23:19:14", "Менеджер проектов",
+      "Бухгалтер", "Сегодня состоится встреча за квартал в 16:00."));
+    testMessages.add(new Message("12-04-2019 23:21:14", "Бухгалтер",
+      "Менеджер проектов", "Хорошо, спасибо."));
   }
   
   private static int i = 0;

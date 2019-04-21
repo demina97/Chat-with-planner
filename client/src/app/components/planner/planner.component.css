@@ -44,4 +44,35 @@ h1 {
 
 .deleteIcon {
   float: right;
+  cursor: pointer;
+}
+
+.list {
+  background-color: #b3b3b3;
+  color: #173F5F;
+  list-style-image: none;
+}
+
+ngb-datepicker{
+  float: right;
+  margin: 50px 300px 0px 50px;
+}
+
+.dateChange {
+  margin-top: 350px;
+  margin-right: -500px;
+  border: 1px solid #173F5F;
+  background: #173F5F;
+  color: #f2f2f2;
+  border-radius: 5px;
+  padding: 15px;
+  font-family: sans-serif;
+  font-size: 14px;
+  width: 230px;
+}
+
+.dateChange:active, .dateChange:hover, .dateChange:focus{
+  background-color: cadetblue;
+  color: white;
+  border-color: cadetblue;
 }

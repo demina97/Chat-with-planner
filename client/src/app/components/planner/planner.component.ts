@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-planner',
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class PlannerComponent implements OnInit {
   tasks = [];
   task: string = "";
+  selectedDate: NgbDateStruct;
   constructor() { }
 
   ngOnInit() {
@@ -27,4 +29,7 @@ export class PlannerComponent implements OnInit {
     }
   }
 
+  getTasks() {
+    console.log(this.selectedDate);
+  }
 }

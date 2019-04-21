@@ -24,7 +24,7 @@ export class ChatComponent {
   }
 
   checkCurrentUser(username: string): boolean {
-    return username == "Vatson";
+    return username == "Менеджер проектов";
   }
 
 }

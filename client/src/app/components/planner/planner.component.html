@@ -16,3 +16,8 @@
 
 
 </div>
+<div>
+<ngb-datepicker #dp [(ngModel)]="selectedDate" (navigate)="date = $event.next"></ngb-datepicker>
+
+</div>
+<button class="dateChange"(click)="getTasks()">Показать задачи</button>

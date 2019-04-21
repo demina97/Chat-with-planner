@@ -11,6 +11,7 @@ import {ChatComponent} from './components/chat/chat.component';
 import {Interceptor} from "./app.interceptor";
 import {RegistrationComponent} from './components/registration/registration.component';
 import { PlannerComponent } from './components/planner/planner.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { PlannerComponent } from './components/planner/planner.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [
     {
