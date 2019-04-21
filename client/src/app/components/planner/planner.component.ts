@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
+import {NgbDate, NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {Task} from "../../models/Task";
 import {LoginService} from "../../services/login.service";
+import {PlannerService} from "../../services/planner.service";
 
 @Component({
   selector: 'app-planner',
@@ -11,31 +12,30 @@ import {LoginService} from "../../services/login.service";
 export class PlannerComponent implements OnInit {
   tasks : Task[] = [];
   task = new Task();
-  selectedDate: NgbDateStruct;
+  selectedDate: NgbDateStruct = new NgbDate(new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate()+1);
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private plannerService: PlannerService) { }
 
   ngOnInit() {
+    this.getTasks();
   }
 
   addTask(value : string){
     this.task.taskText = value;
     this.task.taskStatus = false;
-    this.tasks.push(this.task);
-    this.task.taskText = "";
     this.task.taskOwner = this.loginService.userInfo.phone;
-    console.log(this.tasks);
+    this.task.taskDate = new Date(this.selectedDate.year, this.selectedDate.month-1, this.selectedDate.day);
+    this.plannerService.saveTask(this.task).subscribe(value1 => this.tasks = value1);
+    this.task.taskText = "";
   }
 
   deleteItem(task) {
-    for(let i = 0; i <= this.tasks.length; i++){
-      if(task == this.tasks[i]){
-        this.tasks.splice(i, 1);
-      }
-    }
+    this.plannerService.deleteTask(task).subscribe(()=> this.getTasks())
   }
 
   getTasks() {
-    console.log(this.selectedDate);
+    this.plannerService
+      .loadTasks(new Date(this.selectedDate.year, this.selectedDate.month-1, this.selectedDate.day))
+      .subscribe(value => this.tasks = value);
   }
 }

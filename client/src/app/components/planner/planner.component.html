@@ -11,15 +11,15 @@
       <li class="task" *ngFor="let task of tasks">
         <input type="checkbox" [attr.id]="task">
         <label [attr.for]="task"><span></span>
-          <p>{{task}}</p>
-        <i class="material-icons deleteIcon" (click)="deleteItem(task)">delete</i></label>
+          <p>{{task.taskText}}</p>
+        <i class="material-icons deleteIcon" (click)="deleteItem(task.taskId)">delete</i></label>
       </li>
     </ul>
   </div>
 
 </div>
 <div>
-<ngb-datepicker #dp [(ngModel)]="selectedDate" (navigate)="date = $event.next"></ngb-datepicker>
+<ngb-datepicker #dp [(ngModel)]="selectedDate"></ngb-datepicker>
 
 </div>
 <button class="dateChange"(click)="getTasks()">Показать задачи</button>
