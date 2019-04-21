@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.loginService.validateLogin().subscribe(value => {
-      this.chatService.initializeWebSocketConnection();
+      this.chatService.initializeWebSocketConnection(this.loginService.userInfo.phone);
     });
   }
 

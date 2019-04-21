@@ -1,8 +1,8 @@
 export class User {
-  phone: String = "";
-  firstName: String = "";
-  lastName: String = "";
-  position: String = "";
-  password: String = "";
+  phone: string = "";
+  firstName: string = "";
+  lastName: string = "";
+  position: string = "";
+  password: string = "";
   confirmedPassword = "";
 }

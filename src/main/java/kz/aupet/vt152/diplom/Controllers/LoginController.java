@@ -2,8 +2,9 @@ package kz.aupet.vt152.diplom.Controllers;
 
 import kz.aupet.vt152.diplom.Configuration.JwtTokenUtil;
 import kz.aupet.vt152.diplom.Models.Login.LoginData;
+import kz.aupet.vt152.diplom.Models.Login.ValidateResponce;
 import kz.aupet.vt152.diplom.Models.RequestError;
-import kz.aupet.vt152.diplom.Models.User;
+import kz.aupet.vt152.diplom.Models.UserRegistration;
 import kz.aupet.vt152.diplom.service.JwtAuthenticationResponse;
 import kz.aupet.vt152.diplom.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 @RestController
@@ -51,11 +50,11 @@ public class LoginController {
     final UserDetails userDetails = userService.loadUserByUsername(authenticationRequest.getUsername());
     final String token = jwtTokenUtil.generateToken(userDetails);
     
-    return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+    return ResponseEntity.ok(new JwtAuthenticationResponse(token, userService.getUser(authenticationRequest.getUsername())));
   }
   
   @RequestMapping(value = "/registration", method = RequestMethod.POST)
-  public ResponseEntity<?> registration(@RequestBody User user) {
+  public ResponseEntity<?> registration(@RequestBody UserRegistration user) {
     if (!userService.checkPhoneNumber(user.getPhone())) {
       return new ResponseEntity<>(new RequestError("Пользователь с таким телефоном уже существует"), HttpStatus.BAD_REQUEST);
     }
@@ -68,8 +67,8 @@ public class LoginController {
   }
   
   @RequestMapping(value = "/validate", method = RequestMethod.GET)
-  public ResponseEntity<?> validate() {
-    return ResponseEntity.ok(true);
+  public ResponseEntity<?> validate(@RequestHeader("Authorization") String token) {
+    return ResponseEntity.ok(new ValidateResponce(true, userService.getUserByToken(token)));
   }
   
   private void authenticate(String username, String password) {

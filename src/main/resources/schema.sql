@@ -8,3 +8,15 @@ create table person
   position  varchar,
   password  varchar
 );
+
+drop table if exists chat_message;
+
+create table chat_message
+(
+  id            serial primary key,
+  sender        varchar(20) references person (phone) not null,
+  recipient     varchar(20) references person (phone) not null,
+  messageText   text,
+  timeOfSending timestamp default now(),
+  status        numeric default 1
+);

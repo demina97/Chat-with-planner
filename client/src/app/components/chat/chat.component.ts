@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {ChatService} from "../../services/chat.service";
 import {Message} from "../../models/Message";
+import {LoginService} from "../../services/login.service";
 
 @Component({
   selector: 'app-chat',
@@ -8,23 +9,44 @@ import {Message} from "../../models/Message";
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
+  @ViewChild("chat") chatDiv: ElementRef;
   public input: string = "";
+  private loading: boolean = false;
 
-  constructor(private chatService: ChatService) {
+  constructor(private chatService: ChatService, private loginService: LoginService) {
 
   }
 
   sendMessage() {
-    this.chatService.sendMessage(this.input);
+    this.chatService.sendMessage(
+      new Message(new Date(),
+        this.loginService.userInfo.phone,
+        this.chatService.opened,
+        this.input)
+    );
     this.input = "";
   }
 
   messages(): Message[] {
-    return this.chatService.messages;
+    return this.chatService.getMessages();
   }
 
   checkCurrentUser(username: string): boolean {
-    return username == "Менеджер проектов";
+    return username == this.loginService.userInfo.phone;
   }
 
+  openChatWith(phone: string) {
+    this.chatService.opened = phone;
+    this.loading = true;
+    this.chatService.loadMessagesFor(phone).subscribe(
+      () => {
+        this.loading = false;
+        window.requestAnimationFrame(() =>
+          this.chatDiv.nativeElement.scrollTop = this.chatDiv.nativeElement.scrollHeight
+        );
+      }, () => {
+        this.loading = false;
+      }
+    );
+  }
 }

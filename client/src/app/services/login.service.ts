@@ -14,20 +14,22 @@ import {Router} from "@angular/router";
 })
 export class LoginService {
   isLogin: boolean = false;
+  userInfo: User;
 
   constructor(private http: HttpClient, private chatService: ChatService, private token: TokenService, private router: Router) {
   }
 
   login(user: LoginData): Observable<boolean> {
-    let url = environment.server_url + '/login';
+    let url = environment.server_url + '/api/login';
     return this.http.post<any>(url, {
       username: user.userName,
       password: user.password
     }).pipe(map(data => {
       if (data) {
         this.token.setToken(data.token);
+        this.userInfo = data.user;
         this.isLogin = true;
-        this.chatService.initializeWebSocketConnection();
+        this.chatService.initializeWebSocketConnection(this.userInfo.phone);
         return true;
       } else {
         alert("Authentication failed.");
@@ -38,8 +40,9 @@ export class LoginService {
   }
 
   validateLogin(): Observable<boolean> {
-    return this.http.get<boolean>(environment.server_url + '/validate', {}).pipe(map(value => {
-      this.isLogin = value;
+    return this.http.get<any>(environment.server_url + '/api/validate', {}).pipe(map(value => {
+      this.isLogin = value.status;
+      this.userInfo = value.user;
       return this.isLogin;
     }, error => {
       return (this.isLogin = false);
@@ -47,7 +50,7 @@ export class LoginService {
   }
 
   registration(user: User): Observable<boolean> {
-    return this.http.post<any>(environment.server_url + '/registration', user)
+    return this.http.post<any>(environment.server_url + '/api/registration', user)
       .pipe(map(data => {
         if (data) {
           alert("Registration SUCCESS.");

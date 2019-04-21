@@ -23,7 +23,6 @@ export class LoginPageComponent implements OnInit {
     this.afterClick = true;
     this.service.login(this.user).subscribe(value => {
         if (value) {
-          alert("SUCCESS");
           this.router.navigateByUrl("/chat");
         } else {
           alert("ERROR");

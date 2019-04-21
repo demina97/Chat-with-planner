@@ -1,5 +1,6 @@
 package kz.aupet.vt152.diplom.dao;
 
+import kz.aupet.vt152.diplom.Models.Login.LoginData;
 import kz.aupet.vt152.diplom.Models.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,6 +17,9 @@ public interface UserDao {
   
   @Select("select * from person where phone=#{phone}")
   User getUserByPhone(@Param("phone") String phone);
+  
+  @Select("select phone as username, password as password from person where phone=#{phone}")
+  LoginData getUserLoginData(@Param("phone") String phone);
   
   @Insert("insert into person (phone, firstName, lastName, position, password)" +
     " values (#{user.phone}, #{user.firstName}, #{user.lastName}, #{user.position}, #{user.password})")

@@ -1,4 +1,4 @@
 export class LoginData {
-  userName: String = "";
-  password: String = "";
+  userName: string = "";
+  password: string = "";
 }

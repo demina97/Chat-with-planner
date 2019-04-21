@@ -1,49 +1,46 @@
 package kz.aupet.vt152.diplom.Controllers;
 
 
+import kz.aupet.vt152.diplom.Configuration.JwtTokenUtil;
 import kz.aupet.vt152.diplom.Models.Message;
+import kz.aupet.vt152.diplom.service.ChatService;
+import kz.aupet.vt152.diplom.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 public class WebSocketController {
   private final SimpMessagingTemplate template;
   
-  private static List<Message> testMessages = new ArrayList<>();
+  private final UserService userService;
   
-  static {
-    testMessages.add(new Message("12-04-2019 23:15:14", "Бухгалтер",
-      "Менеджер проектов", "Добрый день!"));
-    testMessages.add(new Message("12-04-2019 23:18:14", "Менеджер проектов",
-      "Бухгалтер", "Добрый."));
-    testMessages.add(new Message("12-04-2019 23:19:14", "Менеджер проектов",
-      "Бухгалтер", "Сегодня состоится встреча за квартал в 16:00."));
-    testMessages.add(new Message("12-04-2019 23:21:14", "Бухгалтер",
-      "Менеджер проектов", "Хорошо, спасибо."));
-  }
+  private final ChatService chatService;
+  
+  private final JwtTokenUtil jwtTokenUtil;
   
   private static int i = 0;
   
   @Autowired
-  WebSocketController(SimpMessagingTemplate template) {
+  WebSocketController(SimpMessagingTemplate template, UserService userService, ChatService chatService, JwtTokenUtil jwtTokenUtil) {
     this.template = template;
+    this.userService = userService;
+    this.chatService = chatService;
+    this.jwtTokenUtil = jwtTokenUtil;
   }
   
   @MessageMapping("/send/message")
-  public void onReceiveMessage(String message, SimpMessageHeaderAccessor headerAccessor) {
-    String token = (String) headerAccessor.getSessionAttributes().get("token");
-    this.template.convertAndSend("/chat",
-      testMessages.get(i++));
+  public void send_message(Message message, SimpMessageHeaderAccessor headerAccessor) {
+    Message msg = chatService.saveMessage(message);
+    this.template.convertAndSend("/chat-" +
+        msg.getRecipient(),
+      msg);
     
-    if (i >= testMessages.size()) {
-      i = 0;
-    }
+    this.template.convertAndSend("/chat-" +
+        msg.getSender(),
+      msg);
   }
   
   @MessageMapping("/info")

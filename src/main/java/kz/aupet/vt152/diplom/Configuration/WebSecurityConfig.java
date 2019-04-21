@@ -63,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .authorizeRequests()
       .antMatchers("/api/login/**").permitAll()
       .antMatchers("/api/registration/**").permitAll()
+      .antMatchers(HttpMethod.OPTIONS).permitAll()
       .anyRequest().authenticated();
     
     httpSecurity
@@ -81,6 +82,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     web
       .ignoring()
       .antMatchers(
+        HttpMethod.OPTIONS,
+        "*")
+      .and()
+      .ignoring()
+      .antMatchers(
         HttpMethod.POST,
         "/api/login",
         "/api/registration"
@@ -95,7 +101,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         "/**/*.html",
         "/**/*.css",
         "/**/*.js"
-      ).and().ignoring().antMatchers(
-      HttpMethod.OPTIONS);
+      );
   }
 }

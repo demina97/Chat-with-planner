@@ -1,17 +1,27 @@
 <div class="chat-container">
-  <div class="chat">
+  <div class="chat-list">
+    <div class="chat-user" [ngClass]="{'selected-user':chatService.opened === chat.phone}"
+         *ngFor="let chat of chatService.chats"
+         (click)="openChatWith(chat.phone)">
+      <div class="user-name">{{chat.firstName + " " + chat.lastName}}</div>
+      <div class="user-phone">Phone : <span>{{chat.phone}}</span></div>
+    </div>
+  </div>
+  <div class="chat" #chat>
+    <div *ngIf="loading" class="loading"></div>
+    <div *ngIf="!loading && messages().length == 0" class="nodata">Нет сообщений</div>
     <div class='message' [ngClass]="{'userMessage': checkCurrentUser(m.sender)}" *ngFor="let m of messages()">
       <div>
         <span class="senderName">{{m.sender}}</span>
         <br>
-        <span class="sendingTime">{{m.timeOfSending}}</span>
+        <span class="sendingTime">{{m.timeOfSending|date:'short'}}</span>
         <div class="messageText">{{m.messageText}}</div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="footer">
+<div class="footer" *ngIf="chatService.opened">
   <div class="send-button">
     <div class="send" (click)="sendMessage()"></div>
     <label>
