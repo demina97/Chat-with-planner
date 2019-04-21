@@ -4,6 +4,7 @@ package kz.aupet.vt152.diplom.Controllers;
 import kz.aupet.vt152.diplom.Models.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
@@ -35,7 +36,8 @@ public class WebSocketController {
   }
   
   @MessageMapping("/send/message")
-  public void onReceiveMessage(String message) {
+  public void onReceiveMessage(String message, SimpMessageHeaderAccessor headerAccessor) {
+    String token = (String) headerAccessor.getSessionAttributes().get("token");
     this.template.convertAndSend("/chat",
       testMessages.get(i++));
     
