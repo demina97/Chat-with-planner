@@ -3,6 +3,7 @@
     <div class="chat-user" [ngClass]="{'selected-user':chatService.opened === chat.phone}"
          *ngFor="let chat of chatService.chats"
          (click)="openChatWith(chat.phone)">
+      <div *ngIf="chat.hasNewMessage" class="newMsg"></div>
       <div class="user-name">{{chat.firstName + " " + chat.lastName}}</div>
       <div class="user-phone">Phone : <span>{{chat.phone}}</span></div>
     </div>
@@ -25,7 +26,7 @@
   <div class="send-button">
     <div class="send" (click)="sendMessage()"></div>
     <label>
-      <input [(ngModel)]="input" type="text">
+      <input [(ngModel)]="input" type="text" (keyup.enter)="sendMessage()">
     </label>
   </div>
 </div>

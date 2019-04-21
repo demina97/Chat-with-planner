@@ -12,9 +12,15 @@ export class ChatComponent {
   @ViewChild("chat") chatDiv: ElementRef;
   public input: string = "";
   private loading: boolean = false;
+  newMsg: boolean = false;
 
   constructor(private chatService: ChatService, private loginService: LoginService) {
-
+    chatService.newMsg.subscribe(value => {
+      this.newMsg = true;
+      window.requestAnimationFrame(() =>
+        this.chatDiv.nativeElement.scrollTop = this.chatDiv.nativeElement.scrollHeight
+      );
+    });
   }
 
   sendMessage() {
@@ -44,6 +50,10 @@ export class ChatComponent {
         window.requestAnimationFrame(() =>
           this.chatDiv.nativeElement.scrollTop = this.chatDiv.nativeElement.scrollHeight
         );
+        let u = this.chatService.chats.find(value => value.phone === this.chatService.opened);
+        if (u) {
+          u.hasNewMessage = false;
+        }
       }, () => {
         this.loading = false;
       }

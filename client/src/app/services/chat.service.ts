@@ -4,7 +4,7 @@ import * as SockJS from 'sockjs-client';
 import {Message} from "../models/Message";
 import {TokenService} from "./token.service";
 import {environment} from "../../environments/environment";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {User} from "../models/User";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
@@ -19,6 +19,8 @@ export class ChatService {
   opened: string = null;
   public messages: any = [];
 
+  public newMsg: Subject<Message> = new Subject();
+
   constructor(private http: HttpClient, private token: TokenService) {
   }
 
@@ -32,9 +34,15 @@ export class ChatService {
         that.start();
         that.stompClient.subscribe("/chat-" + user, (message) => {
           if (message.body) {
-            console.log(message.body);
-            if (message.body.recipient === that.opened) {
-              that.messages.push(JSON.parse(message.body));
+            let msg = JSON.parse(message.body);
+            if (msg.recipient === that.opened || msg.sender === that.opened) {
+              that.messages.push(msg);
+              that.newMsg.next(msg);
+            } else {
+              let u = that.chats.find(value => value.phone === msg.sender);
+              if (u) {
+                u.hasNewMessage = true;
+              }
             }
           }
         });
@@ -67,7 +75,7 @@ export class ChatService {
   }
 
   loadMessagesFor(phone: string): Observable<Message[]> {
-    return this.http.get<any>(environment.server_url + "/api_chat/messages?phone=" + phone)
+    return this.http.get<any>(environment.server_url + "/api_chat/messages?phone=" + encodeURIComponent(phone))
       .pipe(map(
         value => {
           this.messages = value;

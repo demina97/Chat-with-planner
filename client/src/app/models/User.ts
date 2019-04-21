@@ -5,4 +5,6 @@ export class User {
   position: string = "";
   password: string = "";
   confirmedPassword = "";
+
+  hasNewMessage: boolean = false;
 }
