@@ -36,21 +36,23 @@ h1 {
   font-size: 14px;
 }
 
-.task {
-  text-align: left;
+
+ul li{
+  background: #eee;
+  border-left: 4px solid #173F5F;
+  padding: 1em;
+  width: 380px;
+  color: black;
   font-family: sans-serif;
-  width: 330px;
+  list-style-type: none;
+  text-align: left;
 }
 
 .deleteIcon {
-  float: right;
+  float:right;
   cursor: pointer;
-}
-
-.list {
-  background-color: #b3b3b3;
   color: #173F5F;
-  list-style-image: none;
+  margin-top: -2px;
 }
 
 ngb-datepicker{
@@ -60,7 +62,7 @@ ngb-datepicker{
 
 .dateChange {
   margin-top: 350px;
-  margin-right: -500px;
+  margin-right: -550px;
   border: 1px solid #173F5F;
   background: #173F5F;
   color: #f2f2f2;
@@ -75,4 +77,34 @@ ngb-datepicker{
   background-color: cadetblue;
   color: white;
   border-color: cadetblue;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + label span{
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  /*background-color: #173F5F;*/
+  margin: 0px 20px 0px 0px;
+  vertical-align: top;
+  background: url("../../../assets/images/unchecked.png");
+  background-size: 25px 25px;
+}
+
+input[type="checkbox"]:checked + label span{
+  border: none;
+  background: url("../../../assets/images/checked.png");
+  background-size: 25px 25px;
+}
+
+p {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  max-width: 300px;
+  word-wrap: break-word;
+
 }

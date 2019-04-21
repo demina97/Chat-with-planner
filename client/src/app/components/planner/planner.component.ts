@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
+import {Task} from "../../models/Task";
 
 @Component({
   selector: 'app-planner',
@@ -7,17 +8,20 @@ import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ['./planner.component.css']
 })
 export class PlannerComponent implements OnInit {
-  tasks = [];
-  task: string = "";
+  tasks : Task[] = [];
+  task = new Task();
   selectedDate: NgbDateStruct;
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  addTask(value : String){
-    this.tasks.push(value);
-    this.task = "";
+  addTask(value : string){
+    this.task.taskText = value;
+    this.task.taskStatus = false;
+    this.tasks.push(this.task);
+    this.task.taskText = "";
     console.log(this.tasks);
   }
 

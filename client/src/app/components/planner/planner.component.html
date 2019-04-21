@@ -8,12 +8,14 @@
 
   <div>
     <ul>
-      <li class="task" *ngFor="let task of tasks">{{task}}
-      <i class="material-icons deleteIcon" (click)="deleteItem(task)">delete</i></li>
+      <li class="task" *ngFor="let task of tasks">
+        <input type="checkbox" [attr.id]="task">
+        <label [attr.for]="task"><span></span>
+          <p>{{task}}</p>
+        <i class="material-icons deleteIcon" (click)="deleteItem(task)">delete</i></label>
+      </li>
     </ul>
   </div>
-
-
 
 </div>
 <div>
