@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {Task} from "../../models/Task";
+import {LoginService} from "../../services/login.service";
 
 @Component({
   selector: 'app-planner',
@@ -12,7 +13,7 @@ export class PlannerComponent implements OnInit {
   task = new Task();
   selectedDate: NgbDateStruct;
 
-  constructor() { }
+  constructor(private loginService: LoginService) { }
 
   ngOnInit() {
   }
@@ -22,6 +23,7 @@ export class PlannerComponent implements OnInit {
     this.task.taskStatus = false;
     this.tasks.push(this.task);
     this.task.taskText = "";
+    this.task.taskOwner = this.loginService.userInfo.phone;
     console.log(this.tasks);
   }
 
