@@ -5,7 +5,7 @@ import java.util.Date;
 public class Task {
     public String taskId;
     public String taskText;
-    public Boolean taskStatus;
+    public TaskStatus taskStatus;
     public String taskOwner;
     public Date taskDate;
 }

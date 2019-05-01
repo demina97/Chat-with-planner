@@ -108,3 +108,10 @@ p {
   word-wrap: break-word;
 
 }
+.date >>> .bg-primary{
+  background: #173F5F;
+}
+
+.date >>> .text-white{
+  color: white;
+}

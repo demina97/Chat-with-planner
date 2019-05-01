@@ -27,7 +27,7 @@ create table planner
 (
   idTask      serial primary key,
   textTask    text,
-  statusTask  boolean,
+  statusTask  varchar(255),
   ownerTask   varchar(20) references person (phone) not null,
   dateTask    timestamp default now()
 );

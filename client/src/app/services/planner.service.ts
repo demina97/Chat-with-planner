@@ -10,6 +10,7 @@ import {User} from "../models/User";
 import {Router} from "@angular/router";
 import {Task} from '../models/Task';
 import {LoginService} from "./login.service";
+import {TaskStatus} from "../models/TaskStatus";
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,21 @@ export class PlannerService {
 
   deleteTask(taskId: string): Observable<any>{
     return this.http.post<any>(environment.server_url + '/api_planner/deleteTask?id=' + encodeURIComponent(taskId), {});
+  }
+
+  updateTaskStatus(taskId: string, status: string): Observable<any>{
+    return this.http.post<any>(environment.server_url + '/api_planner/changeStatus', {
+      id:taskId,
+      newStatus: status
+    });
+  }
+
+  loadStatus(): Observable<TaskStatus[]>{
+    return this.http.get<any>(
+      environment.server_url + '/api_planner/allStatus'
+    ).pipe(map(value => {
+      return value;
+    }));
   }
 
 }
