@@ -20,8 +20,7 @@ public interface ChatDao {
     "   and recipient = #{other})" +
     "  or (sender = #{other} and recipient = #{current})" +
     "  )" +
-    " order by timeofsending desc" +
-    " limit 20 * (#{offset} + 1)")
+    " order by timeofsending desc")
   List<Message> getMessages(@Param("current") String currentUser,
                             @Param("other") String other,
                             @Param("offset") int offset);

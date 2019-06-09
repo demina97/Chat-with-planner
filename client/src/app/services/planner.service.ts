@@ -25,8 +25,8 @@ export class PlannerService {
   }
 
   loadTasks(taskDate: Date): Observable<Task[]>{
-    return this.http.post<any>(environment.server_url + '/api_planner/getTasks',
-     {phone: this.loginService.userInfo.phone, date: taskDate});
+    let uri = environment.server_url + '/api_planner/getTasks?phone=' + encodeURIComponent(this.loginService.userInfo.phone) + '&date=' + encodeURIComponent(taskDate.toISOString());
+    return this.http.get<any>(uri);
   }
 
   deleteTask(taskId: string): Observable<any>{

@@ -9,22 +9,26 @@ import java.util.Date;
 import java.util.List;
 
 @Mapper
-public interface PlannerDao {
+public interface PlannerDao { //интерфейс объекта доступа к данным планировщика
     @Select("select idtask as taskId, texttask as taskText, " +
             " statustask as taskStatus, ownertask as taskOwner, " +
             " datetask as taskDate" +
-            " from planner where ownertask=#{phone} and date_trunc('day'::VARCHAR, datetask::TIMESTAMP) =  date_trunc('day'::VARCHAR, #{taskDate}::TIMESTAMP)" +
+            " from planner where ownertask=#{phone} and date_trunc('day'::VARCHAR, datetask::TIMESTAMP) " +
+            " =  date_trunc('day'::VARCHAR, #{taskDate}::TIMESTAMP)" +
             " order by idtask")
-    public List<Task> getTasks(@Param("phone") String phone, @Param("taskDate") Date taskDate);
-
+    public List<Task> getTasks(@Param("phone") String phone, @Param("taskDate") Date taskDate); //описание функции
+                                                                                                // выборки задач
     @Insert("insert into planner (texttask, statustask, ownertask, datetask)\n" +
             "values (#{task.taskText}, #{task.taskStatus}, #{task.taskOwner}, #{task.taskDate})")
-    public void saveTasks(@Param("task") Task task);
+    public void saveTasks(@Param("task") Task task);  // описание функции сохранения задачи
 
     @Delete("delete from planner" +
             " where idtask = #{taskId}")
-    public void deleteTask(long taskId);
+    public void deleteTask(long taskId);    // описание функции удаления задачи
 
     @Update("update planner set statustask=#{newStatus} where idtask=#{taskId}")
-    void updateStatus(@Param("taskId") double id, @Param("newStatus") TaskStatus newStatus);
+    void updateStatus(@Param("taskId") double id, @Param("newStatus") TaskStatus newStatus);   //описание функции
+                                                                                            //обновления статуса задачи
 }
+
+

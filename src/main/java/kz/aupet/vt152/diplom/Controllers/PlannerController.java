@@ -26,8 +26,8 @@ public class PlannerController {
         return plannerDao.getTasks(task.taskOwner, task.taskDate);
     }
 
-    @RequestMapping(value = "/getTasks", method = POST)
-    public List<Task> getTasks(@RequestBody GetTasksRequest getTasksRequest){
+    @RequestMapping(value = "/getTasks", method = GET)
+    public List<Task> getTasks(GetTasksRequest getTasksRequest){
         return plannerDao.getTasks(getTasksRequest.phone, getTasksRequest.date);
     }
 
